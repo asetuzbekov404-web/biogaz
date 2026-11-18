@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="kk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Қалдықтан – энергияға | Биогаз зерттеуі</title>
+<meta name="description" content="Ірі қара мал көңінен биогаз алу және температураның биогаз шығымына әсерін зерттеу. Сулейменова Гүлфайруз, 2026.">
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#fff;--alt:#f4efe4;--card:#fff;--tx:#12261e;--mu:#56675e;--g:#0f3d2e;--a:#19c45f;--bd:#e3dccb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1a14;--alt:#0f2219;--card:#132b21;--tx:#e8f1ec;--mu:#9bb3a7;--g:#7be3a5;--a:#2bdc74;--bd:#24402f}}
+:root[data-theme="dark"]{--bg:#0b1a14;--alt:#0f2219;--card:#132b21;--tx:#e8f1ec;--mu:#9bb3a7;--g:#7be3a5;--a:#2bdc74;--bd:#24402f}
+html{scroll-behavior:smooth;scroll-padding-top:calc(60px + env(safe-area-inset-top,0px))}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.6 "PT Sans",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#0f3d2e;z-index:30}
+h1,h2,h3{font-family:"PT Serif",Georgia,serif;line-height:1.15;margin:0 0 .5em;color:var(--g)}
+h2{font-size:clamp(28px,4vw,40px)}h3{font-size:20px}
+p{margin:0 0 1em}.w{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:72px 0}section.alt{background:var(--alt)}
+.lead{color:var(--mu);max-width:62ch}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:#0f3d2e;color:#fff}
+nav .w{display:flex;gap:22px;align-items:center;height:56px;overflow-x:auto;white-space:nowrap}
+nav b{font-family:"PT Serif",serif;color:#19c45f;margin-right:8px}
+nav a{color:#d6e8de;text-decoration:none;font-size:15px}nav a:hover{color:#fff}
+.hero{background:#0f3d2e;color:#fff;padding:64px 0 72px}
+.hero h1{color:#fff;font-size:clamp(42px,8vw,84px)}
+.hero .g{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
+.hero p{color:#c8ddd2;max-width:52ch}
+.btn{display:inline-block;padding:13px 22px;border-radius:10px;font-weight:700;text-decoration:none;margin:6px 10px 6px 0;border:2px solid #19c45f;color:#fff}
+.btn.p{background:#19c45f;color:#06251a}
+.kp{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px}.kp div{font-size:14px;color:#9fc0b0}.kp b{display:block;font:700 32px "PT Serif",serif;color:#19c45f}
+.chip{display:inline-block;background:#f3d27a;color:#3b2a00;border-radius:8px;padding:4px 10px;font-size:14px;margin-top:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:22px;box-shadow:0 2px 8px #0f3d2e12}
+.card p{margin:0;color:var(--mu)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.tabs button,.chips button{font:inherit;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:8px 16px;cursor:pointer}
+.tabs button[aria-pressed=true],.chips button[aria-pressed=true]{background:var(--a);border-color:var(--a);color:#06251a;font-weight:700}
+button:focus-visible,a:focus-visible{outline:3px solid #f3d27a;outline-offset:2px}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:22px;font-size:14px}
+.flow span{background:var(--g);color:var(--bg);border-radius:8px;padding:6px 12px}.flow i{color:var(--a);font-style:normal;font-weight:700}
+.two{display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start}
+svg{width:100%;height:auto}svg .s{fill:none;stroke:var(--g);stroke-width:2.2;stroke-linecap:round}
+.mk{cursor:pointer}.mk circle{fill:var(--card);stroke:var(--a);stroke-width:2.5}.mk text{font:700 13px "PT Sans",sans-serif;fill:var(--tx);text-anchor:middle}
+.mk.on circle{fill:var(--a)}.mk.on text{fill:#06251a}
+.info{position:sticky;top:80px;min-height:170px;border-left:5px solid var(--a)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.chips button{padding:4px 11px;font-size:14px}
+.spec{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}.spec span{background:var(--alt);border-radius:8px;padding:6px 12px;font-size:15px}
+.big{font:700 38px "PT Serif",serif;color:var(--a)}
+.note{border:2px dashed #c79a1c;background:#fff6dc;color:#3b2a00;border-radius:12px;padding:14px 18px;margin:0 0 24px}
+.ch{height:320px;position:relative}
+.fm{font-family:"PT Serif",serif;background:var(--alt);padding:10px 14px;border-radius:8px;margin:0 0 10px}
+ul.l{margin:0;padding-left:20px;color:var(--mu)}ul.l li{margin:6px 0}
+.hl{background:var(--g);color:#fff;border-radius:14px;padding:22px 26px;margin-top:22px}.hl b{color:#19c45f}
+.tbl{width:100%;border-collapse:collapse}.tbl td,.tbl th{padding:9px 6px;border-bottom:1px solid var(--bd);text-align:left}
+footer{background:#0f3d2e;color:#bcd5c8;padding:36px 0;font-size:15px}
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}}
+@media(max-width:800px){.hero .g,.two{grid-template-columns:1fr}.info{position:static}section{padding:52px 0}}
+</style></head>
+<body><script>document.documentElement.classList.add("js")</script>
+<nav><div class="w"><b>Биогаз</b><a href="#zertteu">Зерттеу</a><a href="#process">Процесс</a><a href="#reactor">Биореактор</a><a href="#tajiriba">Тәжірибе</a><a href="#nati">Нәтижелер</a><a href="#esep">Есептеулер</a><a href="#ferma">Ферма</a><a href="#mani">Маңызы</a><a href="#qauip">Қауіпсіздік</a></div></nav>
+
+<header class="hero"><div class="w g"><div>
+<p>Республикалық ғылыми жұмыстар конкурсы · Секция: «Физика. Инженерлік ғылымдар»</p>
+<h1>Қалдықтан – энергияға</h1>
+<p style="font-size:19px">Ірі қара мал көңінен биогаз алу және температураның биогаз шығымына әсерін зерттеу.</p>
+<a class="btn p" href="#zertteu">Зерттеумен танысу</a><a class="btn" href="#nati">Нәтижелерді көру</a>
+<div class="kp"><div><b>25 л</b>биореактор</div><div><b>3</b>температуралық режим</div><div><b>21</b>тәулік зерттеу</div></div>
+<span class="chip">Нәтижелер — модельдік мәндер, нақты өлшем емес</span></div>
+<svg viewBox="0 0 300 340" role="img" aria-label="Биореактор суреті"><rect x="70" y="70" width="160" height="230" rx="22" fill="#134a37" stroke="#19c45f" stroke-width="3"/><rect x="72" y="170" width="156" height="128" rx="20" fill="#a67c3d" opacity=".6"/><path d="M150 70V30h100" stroke="#19c45f" stroke-width="3" fill="none"/><circle cx="250" cy="30" r="10" fill="#19c45f"/><g fill="#19c45f" opacity=".85"><circle cx="110" cy="230" r="7"/><circle cx="150" cy="260" r="10"/><circle cx="185" cy="215" r="6"/><circle cx="130" cy="190" r="5"/><circle cx="170" cy="120" r="9"/><circle cx="105" cy="135" r="6"/></g><path d="M150 55v200M130 250h40" stroke="#f4efe4" stroke-width="3"/></svg>
+</div></header>
+
+<section id="zertteu"><div class="w"><h2 class="rv">Зерттеу туралы</h2>
+<p class="lead rv">Мал шаруашылығы қалдықтары — қоршаған ортаға салмақ түсіретін және әлі толық пайдаланылмаған энергия көзі. Жұмыста температура биогаз шығымына қалай әсер ететіні зерттеледі.</p>
+<div class="grid" id="about"></div>
+<div class="card rv" style="margin-top:18px"><h3>Зерттеу міндеттері</h3><ul class="l"><li>25 литрлік биореактордың инженерлік моделін жасау.</li><li>20, 30 және 37 °C режимдерінде 21 тәулік бойы биогаз шығымын салыстыру.</li><li>Метан көлемі мен энергетикалық әлеуетті бағалау.</li><li>Нәтижені 10 сиырлық шағын фермаға масштабтау.</li></ul></div></div></section>
+
+<section id="process" class="alt"><div class="w"><h2 class="rv">Биогаз қалай түзіледі?</h2>
+<p class="lead">Көң оттегісіз ортада төрт кезеңнен өтіп, биогазға айналады. Кезеңді таңдаңыз.</p>
+<div class="tabs" id="st"></div><div class="card" id="stb" aria-live="polite"></div>
+<div class="flow"><span>Көң + су</span><i>→</i><span>Гидролиз</span><i>→</i><span>Ацидогенез</span><i>→</i><span>Ацетогенез</span><i>→</i><span>Метаногенез</span><i>→</i><span>CH₄ + CO₂</span></div></div></section>
+
+<section id="reactor"><div class="w"><h2 class="rv">Биореактордың инженерлік моделі</h2>
+<div class="spec"><span>Жалпы көлемі: 25 л</span><span>Пайдалы көлемі: 15 л</span><span>Газ кеңістігі: 10 л</span><span>Көң: 7,5 кг</span><span>Су: 7,5 л</span><span>Қатынас 1:1</span><span>Толтыру коэффициенті: 60%</span></div>
+<div class="two"><div class="card"><svg id="sch" viewBox="0 0 720 450" role="img" aria-label="Биореактор схемасы">
+<rect class="s" x="208" y="98" width="224" height="294" rx="22" stroke-dasharray="6 5"/>
+<rect x="221" y="210" width="198" height="169" rx="15" fill="#a67c3d" opacity=".4"/><rect x="221" y="111" width="198" height="99" fill="#19c45f" opacity=".15"/>
+<rect class="s" x="220" y="110" width="200" height="270" rx="16"/>
+<path class="s" d="M60 60h64l-14 50H74zM92 110v25h128M320 56v270M296 56h48M296 300h48M300 326h40M390 110V70h130M520 70v40M560 150h30M620 190v38M620 304v36M420 370h50M236 392v38M404 392v38M220 430h200"/>
+<rect class="s" x="398" y="150" width="10" height="130" rx="5"/><circle cx="403" cy="285" r="7" fill="#e5484d"/>
+<rect class="s" x="490" y="110" width="70" height="80" rx="8"/><rect x="491" y="140" width="68" height="49" fill="#4da3ff" opacity=".3"/>
+<rect class="s" x="590" y="110" width="60" height="80" rx="8"/><ellipse class="s" cx="620" cy="266" rx="58" ry="36" fill="#19c45f" fill-opacity=".15"/>
+<rect class="s" x="595" y="340" width="50" height="90" rx="6"/><rect class="s" x="470" y="362" width="14" height="16"/></svg></div>
+<div class="card info" id="inf" aria-live="polite"></div></div>
+<div class="chips" id="chips"></div></div></section>
+
+<section id="tajiriba" class="alt"><div class="w"><h2 class="rv">Эксперименттік зерттеу</h2>
+<p class="lead">Зерттеу 21 тәулікке созылады. Салыстыру дұрыс болуы үшін температурадан басқа барлық шарт бірдей.</p>
+<div class="grid" id="tmp"></div>
+<div class="card" style="margin-top:18px"><h3>Барлық режимде бірдей параметрлер</h3><div class="spec" style="margin:0"><span>7,5 кг көң</span><span>7,5 л су</span><span>15 л субстрат</span><span>Күніне 2 рет араластыру</span><span>Бірдей өлшеу әдісі</span></div></div></div></section>
+
+<section id="nati"><div class="w"><h2 class="rv">Зерттеу нәтижелері</h2>
+<div class="note"><b>Назар аударыңыз:</b> төмендегі деректер — модельдік (есептік) мәндер, нақты эксперименттік өлшем емес. Конкурсқа ұсынар алдында олар нақты өлшемдермен ауыстырылуы тиіс.</div>
+<div class="card"><h3>Суткалық биогаз шығымы, л</h3><div class="ch"><canvas id="c1"></canvas></div></div>
+<div class="grid" style="margin-top:18px"><div class="card"><h3>Жалпы шығым, л</h3><div class="ch"><canvas id="c2"></canvas></div></div><div class="card"><h3>Орташа шығым, л/тәулік</h3><div class="ch"><canvas id="c3"></canvas></div></div></div>
+<div class="grid" id="tot" style="margin-top:18px"></div>
+<div class="hl"><b>Негізгі нәтиже:</b> 37 °C кезінде модельдік биогаз шығымы ең жоғары болды — 274,1 л.</div></div></section>
+
+<section id="esep" class="alt"><div class="w"><h2 class="rv">Математикалық есептеулер</h2>
+<p class="lead">Режимді таңдап, есептеу нәтижелерін көріңіз. Метан үлесі — есептік мән (60%), өлшенген емес.</p>
+<div class="tabs" id="mt"></div>
+<div class="two"><div><div class="fm">Орташа тәуліктік шығым = V<sub>жалпы</sub> / 21</div><div class="fm">Меншікті шығым = V<sub>жалпы</sub> / 7,5 кг</div><div class="fm">Өсім, % = (V₂ − V₁) / V₁ × 100</div><div class="fm">V(CH₄) = V<sub>жалпы</sub> × 0,6</div><div class="fm">E = V(CH₄) × 0,03667 МДж/л; 1 кВт·сағ = 3,6 МДж; пайдалы жылу = E × 0,6</div></div>
+<div class="card"><table class="tbl" id="mr"></table></div></div>
+<div class="grid" style="margin-top:18px"><div class="card"><div class="big">+70,4%</div><p>30 °C — 20 °C-ға қатысты</p></div><div class="card"><div class="big">+114,1%</div><p>37 °C — 20 °C-ға қатысты</p></div><div class="card"><div class="big">+25,7%</div><p>37 °C — 30 °C-ға қатысты</p></div></div></div></section>
+
+<section id="ferma"><div class="w"><h2 class="rv">10 сиырлық фермаға масштабтау</h2>
+<p class="lead">Лабораториялық модельден шағын фермаға көшудің алдын ала есептік бағасы. Бұл нақты фермадағы өнімділіктің кепілі емес.</p>
+<div class="grid" id="fm"></div></div></section>
+
+<section id="mani" class="alt"><div class="w"><h2 class="rv">Экологиялық және экономикалық маңызы</h2>
+<div class="grid"><div class="card"><h3>Экологиялық артықшылықтар</h3><ul class="l"><li>Мал шаруашылығы қалдықтарын тиімді пайдалану.</li><li>Метан шығарындыларын бақылау.</li><li>Қоршаған ортаның ластануын азайту.</li><li>Дигестатты тыңайтқыш ретінде пайдалану мүмкіндігі.</li></ul></div>
+<div class="card"><h3>Экономикалық бағалау</h3><ul class="l"><li>Энергияны жергілікті жерде өндіру.</li><li>Дәстүрлі энергия көздеріне тәуелділікті азайту.</li><li>Шағын фермаларға арналған технологиялық мүмкіндік.</li></ul></div></div></div></section>
+
+<section id="qauip"><div class="w"><h2 class="rv">Қауіпсіздік</h2><div class="grid" id="sf"></div></div></section>
+
+<section class="alt"><div class="w"><h2 class="rv">Қорытынды</h2>
+<div class="grid"><div class="card"><p>37 °C режимі модельдік есеп бойынша ең жоғары биогаз шығымын көрсетті.</p></div><div class="card"><p>Температура анаэробты ашыту процесіне әсер етеді.</p></div><div class="card"><p>25 литрлік биореактор шағын зертханалық модель ретінде қарастырылған.</p></div><div class="card"><p>Технологияны шағын фермаларға бейімдеу мүмкіндігі бар.</p></div></div>
+<div class="note" style="margin-top:22px">Сандық нәтижелер конкурсқа ұсынар алдында нақты өлшемдермен ауыстырылуы тиіс.</div>
+<h3>Әдебиеттер</h3><ul class="l"><li>Қазақстан Республикасы Ұлттық статистика бюросы.</li><li>U.S. Environmental Protection Agency — Basic Information about Anaerobic Digestion.</li><li>EPA AgSTAR.</li><li>Food and Agriculture Organization (FAO).</li><li>Tufaner F., Avsar Y. (2017).</li></ul></div></section>
+
+<footer><div class="w">Автор: Сулейменова Гүлфайруз · Ғылыми жетекші: Шолтаманова Анаргуль · 2026</div></footer>
+
+<script>
+const $=s=>document.querySelector(s),H=(el,h)=>el.innerHTML=h;
+const card=(t,p)=>`<div class="card rv"><h3>${t}</h3><p>${p}</p></div>`;
+H($("#about"),[["Зерттеу мәселесі","Мал қалдықтары жиналып, ортаны ластайды және метан бөледі, ал олардың энергиясы пайдаланылмайды."],["Зерттеудің мақсаты","Көңнің анаэробты ашытылуында температураның биогаз шығымына әсерін сандық бағалау және шағын фермаға арналған биогаз жүйесінің инженерлік-энергетикалық моделін жасау."],["Зерттеу болжамы","Температура 37 °C-қа дейін көтерілген сайын бактериялардың белсенділігі артып, биогаз шығымы көбейеді."],["Зерттеу нысаны","Ірі қара мал көңінің анаэробты ашытылуы."],["Зерттеу пәні","Температураның биогаз шығымына әсері."],["Зерттеу әдістері","Зертханалық модельдеу, салыстырмалы талдау, математикалық есептеу, инженерлік модельдеу."]].map(a=>card(...a)).join(""));
+const S=[["Гидролиз","Күрделі органикалық заттар (белок, май, көмірсу) ферменттер әсерінен қарапайым молекулаларға ыдырайды.","Белоктар, майлар және полисахаридтер ұсақ бөлшектерге бөлінеді.","Аминқышқылдары, қанттар, май қышқылдары."],["Ацидогенез","Қышқыл түзуші бактериялар қарапайым қосылыстарды әрі қарай өңдейді.","Қанттар мен аминқышқылдары ашиды.","Ұшқыш май қышқылдары, спирттер, H₂, CO₂."],["Ацетогенез","Ацетоген бактериялар ұшқыш қышқылдар мен спирттерді метанға жақын өнімдерге айналдырады.","Қышқылдар мен спирттер тотығады.","Сірке қышқылы (ацетат), H₂, CO₂."],["Метаногенез","Метаногенді архейлер ацетат пен сутегінен метан түзеді. Бұл кезең температураға өте сезімтал.","Ацетат және H₂ + CO₂ биогазға айналады.","Метан (CH₄) және көмірқышқыл газы (CO₂)."]];
+H($("#st"),S.map((s,i)=>`<button aria-pressed="${!i}" data-i="${i}">${i+1}. ${s[0]}</button>`).join(""));
+const showS=i=>{[...$("#st").children].forEach((b,j)=>b.setAttribute("aria-pressed",i==j));const s=S[i];H($("#stb"),`<h3>${s[0]}</h3><p>${s[1]}</p><p><b>Не болады:</b> ${s[2]}</p><p style="margin:0"><b>Түзілетін заттар:</b> ${s[3]}</p>`)};
+$("#st").onclick=e=>e.target.dataset.i&&showS(+e.target.dataset.i);showS(0);
+const C=[["Шикізат дайындау ыдысы","Көң мен суды 1:1 қатынаста араластырып, біртекті субстрат дайындайды.",92,85],["Жүктеу құбыры","Дайын субстратты реакторға герметикалықты бұзбай құяды.",160,135],["Герметикалық реактор","Оттегісіз ашыту жүретін негізгі жабық көлем (25 л).",232,160],["Субстрат аймағы","Көң мен судың 15 литрлік қоспасы; бактериялар осында жұмыс істейді.",370,340],["Газ жиналу аймағы","Субстрат үстіндегі 10 литрлік бос кеңістік; биогаз осында жиналады.",360,160],["Араластыру тұтқасы","Күніне 2 рет араластырып, қабық түзілуін болдырмайды және температураны теңестіреді.",320,40],["Термометр","Субстрат температурасын (20, 30 немесе 37 °C) бақылайды.",440,215],["Жылуоқшаулағыш қабат","Жылу шығынын азайтып, таңдалған режимді тұрақты ұстайды.",200,345],["Газ шығару түтігі","Биогазды реактордан тазарту және өлшеу жүйесіне жібереді.",470,62],["Су қақпағы","Газдың кері қайтуын болдырмайды, қысымды қауіпсіз ұстайды.",525,208],["Газ тазарту ыдысы","Газдағы ылғал мен қоспаларды азайтады.",620,100],["Газ жинау қапшығы","Тазартылған биогазды уақытша жинайды.",692,266],["Өлшеу цилиндрі","Биогаз көлемін өлшеуге арналған градусталған цилиндр.",572,385],["Шығару краны","Ашытылған қалдықты (дигестатты) реактордан шығарады.",477,398],["Тірек тұғыр","Реакторды орнықты ұстап тұрады.",320,425]];
+const sch=$("#sch");sch.insertAdjacentHTML("beforeend",C.map((c,i)=>`<g class="mk" data-i="${i}" tabindex="0" role="button" aria-label="${c[0]}"><circle cx="${c[2]}" cy="${c[3]}" r="13"/><text x="${c[2]}" y="${c[3]+4.5}">${i+1}</text></g>`).join(""));
+H($("#chips"),C.map((c,i)=>`<button aria-pressed="false" data-i="${i}">${i+1}. ${c[0]}</button>`).join(""));
+const pick=i=>{document.querySelectorAll(".mk").forEach((m,j)=>m.classList.toggle("on",i==j));[...$("#chips").children].forEach((b,j)=>b.setAttribute("aria-pressed",i==j));H($("#inf"),`<div class="big">${i+1}</div><h3>${C[i][0]}</h3><p>${C[i][1]}</p>`)};
+H($("#inf"),'<h3>Компонентті таңдаңыз</h3><p>Схемадағы нөмірді басыңыз немесе төмендегі тізімнен таңдаңыз.</p>');
+sch.onclick=e=>{const g=e.target.closest(".mk");g&&pick(+g.dataset.i)};sch.onkeydown=e=>{const g=e.target.closest(".mk");g&&(e.key=="Enter"||e.key==" ")&&(e.preventDefault(),pick(+g.dataset.i))};
+$("#chips").onclick=e=>e.target.dataset.i&&pick(+e.target.dataset.i);
+const T=[[20,"салқын режим","Баяу бастау, жұмсақ шың."],[30,"аралық режим","Орташа белсенділік."],[37,"мезофильді режим","Бактериялар үшін қолайлы температура."]];
+H($("#tmp"),T.map(t=>`<div class="card rv"><div class="big">${t[0]} °C</div><h3>${t[1][0].toUpperCase()+t[1].slice(1)}</h3><p>${t[2]} Ұзақтығы: 21 тәулік.</p></div>`).join(""));
+const D=[[.1,.7,1.7,3,4.5,5.9,7.2,8.2,8.8,9.2,9.4,9.2,8.9,8.5,8,7.4,6.7,6.1,5.4,4.8,4.3],[.3,2,4.8,8.2,11.4,14.2,16.1,17.2,17.6,17.3,16.5,15.3,14,12.5,11,9.6,8.2,7,5.9,4.9,4.1],[.6,3.6,8.3,13.4,18,21.4,23.4,24,23.5,22.1,20.2,18.1,15.8,13.6,11.5,9.6,7.9,6.4,5.2,4.2,3.3]];
+const TOT=[128,218.1,274.1],AVG=[6.1,10.39,13.05],SP=[17.07,29.08,36.55],COL=["#c4a06a","#2f7d57","#19c45f"],f=(n,d=1)=>n.toFixed(d).replace(".",",");
+H($("#tot"),T.map((t,i)=>`<div class="card"><div class="big">${f(TOT[i])} л</div><p>${t[0]} °C · орташа ${f(AVG[i],2)} л/тәулік</p></div>`).join(""));
+const cs=getComputedStyle(document.documentElement),mu=cs.getPropertyValue("--mu").trim(),bd=cs.getPropertyValue("--bd").trim();
+Chart.defaults.color=mu;Chart.defaults.font.family="PT Sans";
+const sc={x:{grid:{color:bd}},y:{grid:{color:bd},beginAtZero:true}},lb=T.map(t=>t[0]+" °C");
+new Chart($("#c1"),{type:"line",data:{labels:D[0].map((_,i)=>i+1),datasets:T.map((t,i)=>({label:t[0]+" °C",data:D[i],borderColor:COL[i],backgroundColor:COL[i],tension:.35,pointRadius:2}))},options:{maintainAspectRatio:false,interaction:{mode:"index",intersect:false},scales:{...sc,x:{...sc.x,title:{display:true,text:"Тәулік"}},y:{...sc.y,title:{display:true,text:"л"}}}}});
+const bar=(id,d,u)=>new Chart($(id),{type:"bar",data:{labels:lb,datasets:[{data:d,backgroundColor:COL,borderRadius:8}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>f(c.raw,2)+" "+u}}},scales:sc}});
+bar("#c2",TOT,"л");bar("#c3",AVG,"л/тәулік");
+H($("#mt"),T.map((t,i)=>`<button aria-pressed="${i==2}" data-i="${i}">${t[0]} °C</button>`).join(""));
+const calc=i=>{[...$("#mt").children].forEach((b,j)=>b.setAttribute("aria-pressed",i==j));const m=TOT[i]*.6,e=m*.03667;H($("#mr"),[["Жалпы биогаз",f(TOT[i])+" л"],["Орташа тәуліктік шығым",f(AVG[i],2)+" л/тәулік"],["Меншікті шығым",f(SP[i],2)+" л/кг"],["Метан көлемі (60%)",f(m)+" л"],["Энергетикалық әлеует",f(e,2)+" МДж"],["Химиялық энергия",f(e/3.6,3)+" кВт·сағ"],["Пайдалы жылу (ПӘК 60%)",f(e/3.6*.6,3)+" кВт·сағ"]].map(r=>`<tr><td>${r[0]}</td><th>${r[1]}</th></tr>`).join(""))};
+$("#mt").onclick=e=>e.target.dataset.i&&calc(+e.target.dataset.i);calc(2);
+const FM=[["10 сиыр","әрқайсысы тәулігіне 20 кг көң береді"],["200 кг көң/тәулік","суға 1:1 араластырылады"],["21 тәулік","ұстау уақыты"],["8,4 м³","жұмыс көлемі; реактор шамамен 10 м³"],["7,31 м³/тәулік","модельдік биогаз"],["44,7 кВт·сағ/тәулік","шартты химиялық энергия"],["26,8 кВт·сағ/тәулік","шартты пайдалы жылу"]];
+H($("#fm"),`<div class="card" style="background:var(--g);color:#fff"><h3 style="color:#19c45f">Зертхана</h3><p style="color:#d6e8de">25 л реактор · 7,5 кг көң · 21 тәулік · 37 °C кезінде 274,1 л</p></div>`+FM.map((a,i)=>`<div class="card rv"><div class="big" style="font-size:26px">${a[0]}</div><p>${a[1]}</p></div>`).join(""));
+H($("#sf"),["Биогазды жағуға болмайды.","Реакторда жоғары қысым жинауға болмайды.","Ашық жалыннан және ұшқыннан алыс ұстау.","Қолғап пен қорғаныш көзілдірігін пайдалану.","Тәжірибені ересек жетекшінің бақылауымен орындау.","Шикі биогазды иіскеуге немесе тыныс алуға болмайды."].map(t=>`<div class="card rv" style="border-left:5px solid #e5484d"><p style="color:var(--tx)">${t}</p></div>`).join(""));
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll(".rv").forEach(el=>io.observe(el))}else document.querySelectorAll(".rv").forEach(el=>el.classList.add("in"));
+</script></body></html>
